@@ -59,40 +59,60 @@ def assign_answers():
 def quiz(chosen_string):
     print "Here is your quiz:"
     print chosen_string
-    check_answer()
-                
-##def correct_answer():
-    
 
-###function to check answer as correct or incorrect
+def correct_answer():
+    new_str = chosen_string.split()
+    index = 0
+    blanks[index]
+    index = index + 1
+    print blanks[index]
 
-###i need to rethink the logic on this loop...still not right
-def check_answer():
-    count = 1
-    i = 0
-    answer_number = 1
-    local_misses_entered = misses_entered
-    while i < len(chosen_answers):
-        user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
-        while i < local_misses_entered:
-            user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
-            if user_answer == chosen_answers[i]:
-                print "That's correct! Great job!"
-                answer_number += 1
-                i += 1
-            else:
-                i += 1
-                print "Whoops! Try again."
-        print "I'm sorry that you have reached your number of strikes. Please try again soon. Goodbye."
-        break
-    return "Congratulations! You won the game! Thanks for playing!"
-        
 difficulty = None
 chosen_string = assign_string()
 chosen_answers = assign_answers()    
 misses_entered = strikes()
 quiz(chosen_string)
+string_with_answers = correct_answer()
+user_answer = None
 
+
+
+##def check_answer():
+##    index = 0
+##    answer_number = 1
+##    while index < len(chosen_answers):
+##        user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
+##        if user_answer == chosen_answers[index]:
+##            print "Good job!"
+##            index += 1
+##            answer_number += 1
+##        else:
+##            if misses_entered > 1:
+##                misses_entered = misses_entered -1
+##                global misses_entered
+##                print "That answer was incorrect. But don't worry. You still have " + str(misses_entered) + " attempts left."
+##            else:
+##                print "I'm sorry you have reached your number of strikes. Come back again soon!"
+##                break
+
+            
+##def check_answer():
+##    count = 1
+##    i = 0
+##    answer_number = 1
+##    local_misses_entered = misses_entered
+##    while i < len(chosen_answers):
+##        user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
+##        if user_answer == chosen_answers[i]:
+##            print "That's correct! Great job!"
+##            answer_number += 1
+##            i += 1
+##        while i < local_misses_entered:
+##            i += 1
+##            print "Whoops! Try again."
+##    print "I'm sorry that you have reached your number of strikes. Please try again soon. Goodbye."
+##    break
+##    return "Congratulations! You won the game! Thanks for playing!"
 
         
         
