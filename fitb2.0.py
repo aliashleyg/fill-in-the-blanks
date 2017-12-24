@@ -23,7 +23,7 @@ def assign_string(difficulty):
                 count += 1
                 difficulty = raw_input("Do you want your quiz 'easy', 'medium' or 'tough'?")
             else:
-                print "Sorry you are having such a tough time. Come back and try again soon. Goodbye."
+                print "Sorry you are having such a difficult time. Come back and try again soon. Goodbye."
                 return
            
 #assigns the correct set of answers that pair with the chosen string
@@ -123,17 +123,3 @@ quiz(chosen_string,chosen_answers)
 ##
 ##
 ##
-
-
-
-
-
-
-
-
-
-
-
-
-
-

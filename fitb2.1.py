@@ -11,6 +11,8 @@ tough_answers = ['tough','answers','will','go','here','.']
 def assign_string():
     count = 0
     while count < 3:
+        difficulty = raw_input("Do you want your quiz 'easy', 'medium' or 'tough'?")
+        global difficulty
         if difficulty == 'easy':
             return easy_string
         elif difficulty == 'medium':
@@ -38,7 +40,7 @@ def strikes():
                     print "Please choose a number between 2 and 99 to continue. Now let's try that again."
                     count += 1
                 else:
-                    return "Sorry you are having so much trouble. Please come back soon and try again."
+                    return False
         else:
             print "Well, that was not a number. Let's try that again."
             count += 1
@@ -54,40 +56,82 @@ def assign_answers():
         return tough_answers
 
 ###question part of the quiz
-def quiz(chosen_string,chosen_answers):
+def quiz(chosen_string):
     print "Here is your quiz:"
     print chosen_string
     check_answer()
+                
+##def correct_answer():
+    
 
+###function to check answer as correct or incorrect
 
-#function to check answer as correct or incorrect
+###i need to rethink the logic on this loop...still not right
 def check_answer():
     count = 1
-    index = 0
-    while index < len(chosen_answers) + len(no_misses_entered):
-        answer_number = 1
-        updated_strike_count = no_misses_entered - 1
-        while count < no_misses_entered:
+    i = 0
+    answer_number = 1
+    local_misses_entered = misses_entered
+    while i < len(chosen_answers):
+        user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
+        while i < local_misses_entered:
             user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
-            if user_answer == chosen_answers[index]:
-                print "Great job!"
-                answer_number = answer_number + 1
-                index = index + 1
+            if user_answer == chosen_answers[i]:
+                print "That's correct! Great job!"
+                answer_number += 1
+                i += 1
             else:
-                print "Whoops! That answer was incorrect. But don't worry. You still have " + str(updated_strike_count) + " chance(s) left to try."
-                updated_strike_count = updated_strike_count - 1
-                count = count + 1
-                index = index + 1
-    return "I'm sorry. You are out of strikes. Please come back and try again soon."
-                
-
-
-difficulty = raw_input("Do you want your quiz 'easy', 'medium' or 'tough'?")
+                i += 1
+                print "Whoops! Try again."
+        print "I'm sorry that you have reached your number of strikes. Please try again soon. Goodbye."
+        break
+    return "Congratulations! You won the game! Thanks for playing!"
+        
+difficulty = None
 chosen_string = assign_string()
 chosen_answers = assign_answers()    
-no_misses_entered = strikes()
-quiz(chosen_string, chosen_answers)
+misses_entered = strikes()
+quiz(chosen_string)
 
+
+        
+        
+        
+##    while index < len(chosen_answers) + no_misses_entered:
+##        answer_number = 1
+##        updated_strike_count = no_misses_entered - 1
+##        while count < no_misses_entered:
+##            user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
+##            if user_answer == chosen_answers[index]:
+##                print "Great job!"
+##                answer_number = answer_number + 1
+##                index = index + 1
+##            else:
+##                print "Whoops! That answer was incorrect. But don't worry. You still have " + str(updated_strike_count) + " chance(s) left to try."
+##                updated_strike_count = updated_strike_count - 1
+##                count = count + 1
+##                index = index + 1
+##    return "I'm sorry. You are out of strikes. Please come back and try again soon."
+
+###function to check answer as correct or incorrect
+##def check_answer():
+##    count = 1
+##    index = 0
+##    while index < len(chosen_answers) + no_misses_entered:
+##        answer_number = 1
+##        updated_strike_count = no_misses_entered - 1
+##        while count < no_misses_entered:
+##            user_answer = raw_input("What is the answer for #" + str(answer_number) + "?")
+##            if user_answer == chosen_answers[index]:
+##                print "Great job!"
+##                answer_number = answer_number + 1
+##                index = index + 1
+##            else:
+##                print "Whoops! That answer was incorrect. But don't worry. You still have " + str(updated_strike_count) + " chance(s) left to try."
+##                updated_strike_count = updated_strike_count - 1
+##                count = count + 1
+##                index = index + 1
+##    return "I'm sorry. You are out of strikes. Please come back and try again soon."
 
 
 
@@ -116,27 +160,3 @@ quiz(chosen_string, chosen_answers)
 ####    for blanks[0] in chosen_string:
 ####        print chosen_answers[0]
 ####        return chosen_answers[0]
-####        
-##    
-##
-#### 
-####def check_answer(user_answer, chosen_answers, number_of_strikes):
-####    counter = 0
-####    index = 0
-####    while counter < number_of_strikes:
-####        if user_answer == chosen_answers[index]:
-####            print "Great job!"
-####            return
-####        else:
-####            print "Whoops! Let's try that again."
-####            number_of_strikes = input("How many strikes do you want until your game is over?")
-####            counter += 1
-####
-####
-####
-####    
-####
-####
-####
-####
-####
