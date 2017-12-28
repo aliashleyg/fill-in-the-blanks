@@ -59,20 +59,25 @@ def assign_answers():
 def quiz(chosen_string):
     print "Here is your quiz:"
     print chosen_string
-
-def correct_answer():
-    new_str = chosen_string.split()
     index = 0
-    blanks[index]
-    index = index + 1
-    print blanks[index]
+    while index < len(blanks):
+        check_answer()
+        index += 1
 
+###check if answer is correct
+def check_answer():
+    question_number = 0
+    user_answer = raw_input("What is the answer to " + blanks[question_number] + "?")
+    while user_answer != chosen_answers[0]:
+        user_answer = raw_input("What is the answer to " + blanks[question_number] + "?")
+    print "correct"
+    question_number += 1
+    
 difficulty = None
 chosen_string = assign_string()
 chosen_answers = assign_answers()    
 misses_entered = strikes()
 quiz(chosen_string)
-string_with_answers = correct_answer()
 user_answer = None
 
 
