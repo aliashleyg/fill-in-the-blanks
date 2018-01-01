@@ -72,6 +72,4 @@ user_difficulty_assignment = choose_level(user_difficulty_choice)
 chosen_quiz = assign_quiz(user_difficulty_assignment)
 print chosen_quiz
 chosen_answers = assign_answers(user_difficulty_assignment)
-fill_blank_with_answer = check_answer(chosen_quiz,chosen_answers)
-
-           
+fill_blank_with_answer = check_answer(chosen_quiz,chosen_answers)           
