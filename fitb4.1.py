@@ -41,7 +41,7 @@ def strikes(number_of_strikes):
             if int(number_of_strikes) > 2 and int(number_of_strikes) < 99:
                 return int(number_of_strikes)
             else:
-                print "Quit trying to break my code, LUIZ!!! HAHAHA Please choose a number between 3 and 99 to continue. Now let's try that again."
+                print "Quit trying to break my code, LUIZ!!! hahahaha :D Please choose a number between 3 and 99 to continue. Now let's try that again."
                 number_of_strikes = raw_input("How many strikes do you want until your game is over?")
             
         else:
