@@ -34,13 +34,28 @@ def assign_answer(user_difficulty_assignment):
     else:
         return hard_answer
 
-def quiz (chosen_quiz, chosen_answers, blanks, number_of_strikes):
+#checks user input to see if it is a valid answer
+def strikes(number_of_strikes):
+    while number_of_strikes:
+        if number_of_strikes.isdigit():
+            if int(number_of_strikes) > 2 and int(number_of_strikes) < 99:
+                return int(number_of_strikes)
+            else:
+                print "Please choose a number between 3 and 99 to continue. Now let's try that again."
+                number_of_strikes = raw_input("How many strikes do you want until your game is over?")
+            
+        else:
+            print "Please choose a number between 3 and 99 to continue. Now let's try that again."
+            number_of_strikes = raw_input("How many strikes do you want until your game is over?")
+
+#assigns appropriate answers from user input
+def quiz (chosen_quiz, chosen_answers, blanks, total_strikes):
     answer_number = 1
     question_number = 0
     wrong_answer = 0
     print chosen_quiz
-    while answer_number <= len(chosen_answers):
-        while wrong_answer < number_of_strikes:
+    while answer_number < len(chosen_answers):
+        while wrong_answer < int(total_strikes):
             user_answer = raw_input("What is the answer to " + str(answer_number) + "?")
             if user_answer == chosen_answers[question_number]:
                 chosen_quiz = chosen_quiz.replace(blanks[question_number],chosen_answers[question_number])
@@ -49,13 +64,14 @@ def quiz (chosen_quiz, chosen_answers, blanks, number_of_strikes):
                 print chosen_quiz
             else:
                 wrong_answer += 1
-        print "Looks like you have reached your maximum number of strikes. Thanks for playing. Goodbye."
-        return
-    print "Wow! Congratulations! You passed the quiz! Thanks for playing. Goodbye."
+        return "Looks like you have reached your maximum number of strikes. Thanks for playing. Goodbye."
+    return "Wow! Congratulations! You passed the quiz! Thanks for playing. Goodbye."
 
 user_difficulty_choice = raw_input("Please select the level of difficulty for your quiz: 'easy', 'medium', or 'hard'")
 user_difficulty_assignment = choose_level(user_difficulty_choice)
 chosen_quiz = assign_quiz(user_difficulty_assignment)
 chosen_answers = assign_answer(user_difficulty_assignment)
-number_of_strikes = input("How many strikes do you want until your game is over?")
+number_of_strikes = raw_input("How many strikes do you want until your game is over?")
+total_strikes = strikes(number_of_strikes)
+total_strikes = int(total_strikes)
 print quiz(chosen_quiz, chosen_answers, blanks, number_of_strikes)
