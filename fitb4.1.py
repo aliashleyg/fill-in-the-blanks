@@ -8,7 +8,7 @@ hard_answer = ['Metaprogramming','decorator','buffer', 'protocol','Coroutines','
 
 #confirms user input is valid and returns appropriate value for quiz assignment
 def choose_level(user_difficulty_choice):
-    valid_difficulty_choice = ['easy','medium','hard']
+    valid_difficulty_choice = ['easy','Easy','medium','Medium','hard','Hard']
     if user_difficulty_choice in valid_difficulty_choice:
         return user_difficulty_choice
     else:
@@ -18,23 +18,23 @@ def choose_level(user_difficulty_choice):
 
 #assigns appropriate quiz from user input
 def assign_quiz(user_difficulty_assignment):
-    if user_difficulty_assignment == 'easy':
+    if user_difficulty_assignment == 'easy' or user_difficulty_assignment == 'Easy':
         return easy_quiz
-    elif user_difficulty_assignment == 'medium':
+    elif user_difficulty_assignment == 'medium' or user_difficulty_assignment == 'Medium':
         return medium_quiz
     else:
         return hard_quiz
 
 #assigns appropriate answers from user input
 def assign_answer(user_difficulty_assignment):
-    if user_difficulty_assignment == 'easy':
+    if user_difficulty_assignment == 'easy' or user_difficulty_assignment == 'Easy':
         return easy_answer
-    elif user_difficulty_assignment == 'medium':
+    elif user_difficulty_assignment == 'medium' or user_difficulty_assignment == 'Medium':
         return medium_answer
     else:
         return hard_answer
 
-#checks user input to see if it is a valid answer
+#checks user input to see if it is a valid number of strikes; converts string to int
 def strikes(number_of_strikes):
     while number_of_strikes:
         if number_of_strikes.isdigit():
@@ -48,24 +48,26 @@ def strikes(number_of_strikes):
             print "Please choose a number between 3 and 99 to continue. Now let's try that again."
             number_of_strikes = raw_input("How many strikes do you want until your game is over?")
 
-#assigns appropriate answers from user input
-def quiz (chosen_quiz, chosen_answers, blanks, total_strikes):
+def quiz(chosen_quiz, chosen_answers, blanks, total_strikes):
     answer_number = 1
     question_number = 0
-    wrong_answer = 0
+    total_strikes = int(total_strikes) - 1
     print chosen_quiz
-    while answer_number < len(chosen_answers):
-        while wrong_answer < int(total_strikes):
-            user_answer = raw_input("What is the answer to " + str(answer_number) + "?")
-            if user_answer == chosen_answers[question_number]:
-                chosen_quiz = chosen_quiz.replace(blanks[question_number],chosen_answers[question_number])
-                answer_number += 1
-                question_number +=1
-                print chosen_quiz
+    while answer_number <= len(chosen_answers):
+        user_answer = raw_input("What is the answer to " + str(answer_number) + "?")
+        if user_answer == chosen_answers[question_number]:
+            chosen_quiz = chosen_quiz.replace(blanks[question_number],chosen_answers[question_number])
+            answer_number += 1
+            question_number +=1
+            print chosen_quiz
+        else:
+            if total_strikes != 0:
+                print "Whoops! Wrong answer. But don't worry, you still have " + str(total_strikes) + " number of tries left."
+                total_strikes = total_strikes - 1
             else:
-                wrong_answer += 1
-        return "Looks like you have reached your maximum number of strikes. Thanks for playing. Goodbye."
+                return "Looks like you have reached your maximum number of strikes. Thanks for playing. Goodbye."
     return "Wow! Congratulations! You passed the quiz! Thanks for playing. Goodbye."
+
 
 user_difficulty_choice = raw_input("Please select the level of difficulty for your quiz: 'easy', 'medium', or 'hard'")
 user_difficulty_assignment = choose_level(user_difficulty_choice)
@@ -75,3 +77,7 @@ number_of_strikes = raw_input("How many strikes do you want until your game is o
 total_strikes = strikes(number_of_strikes)
 total_strikes = int(total_strikes)
 print quiz(chosen_quiz, chosen_answers, blanks, number_of_strikes)
+
+
+
+
