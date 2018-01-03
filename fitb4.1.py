@@ -39,9 +39,10 @@ def strikes(number_of_strikes):
     while number_of_strikes:
         if number_of_strikes.isdigit():
             if int(number_of_strikes) > 2 and int(number_of_strikes) < 99:
-                return int(number_of_strikes)
+                total_strikes = int(number_of_strikes)
+                return total_strikes
             else:
-                print "Quit trying to break my code, LUIZ!!! hahahaha :D Please choose a number between 3 and 99 to continue. Now let's try that again."
+                print "Please choose a number between 3 and 99 to continue. Now let's try that again."
                 number_of_strikes = raw_input("How many strikes do you want until your game is over?")
             
         else:
@@ -75,8 +76,7 @@ chosen_quiz = assign_quiz(user_difficulty_assignment)
 chosen_answers = assign_answer(user_difficulty_assignment)
 number_of_strikes = raw_input("How many strikes do you want until your game is over?")
 total_strikes = strikes(number_of_strikes)
-total_strikes = int(total_strikes)
-print quiz(chosen_quiz, chosen_answers, blanks, number_of_strikes)
+print quiz(chosen_quiz, chosen_answers, blanks, total_strikes)
 
 
 
