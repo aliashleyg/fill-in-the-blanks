@@ -40,7 +40,6 @@ hard_quiz = (blanks[0] + " is a programming technique in which computer"
              " nonpreemptive multitasking. Anonymous functions are defined"
              " using the " + blanks[5] + " keyword.")
 
-
 easy_answer = [
   'Python',
   'while',
@@ -68,20 +67,18 @@ hard_answer = [
   'lambda'
   ]
 
-
-"""check if difficulty choice is a valid response
-
-  Args:
-      user_difficulty_choice: raw input from user asking for level of
-      difficulty.
-  Behavior:
-      Confirms user's input to a list of valid inputs.
-  Returns:
-      If input is valid, returns user_difficulty_choice;
-      If input is invalid, promps user to reenter answer.
 """
+check if difficulty choice is a valid response
 
-
+Args:
+    user_difficulty_choice: raw input from user asking for level of
+    difficulty.
+Behavior:
+    Confirms user's input to a list of valid inputs.
+Returns:
+    If input is valid, returns user_difficulty_choice;
+    If input is invalid, promps user to reenter answer.
+"""
 def choose_level(user_difficulty_choice):
     valid_difficulty_choice = ['easy', 'medium', 'hard']
     if user_difficulty_choice.lower() in valid_difficulty_choice:
@@ -148,11 +145,12 @@ def assign_answer(user_difficulty_assignment):
       If not, prompts user to reenter.
 """
 
-
 def strikes(number_of_strikes):
+    min_val = 2
+    max_val = 99
     while number_of_strikes:
         if number_of_strikes.isdigit():
-            if int(number_of_strikes) > 2 and int(number_of_strikes) < 99:
+            if int(number_of_strikes) > min_val and int(number_of_strikes) < max_val:
                 return int(number_of_strikes)
             else:
                 print ("Please choose a number between 3 and 99 to continue. "
@@ -165,51 +163,50 @@ def strikes(number_of_strikes):
             number_of_strikes = raw_input(
                       "How many strikes do you want until your game is over?")
 
-"""compares user input to answer
 
-  Args:
-      chosen_quiz: appropriate quiz string assignment.
-      chosen_answers: appropriate answer list assignment.
-      blanks: blanks to be filled in the quiz string.
-      total_strikes: number of allowed misses.
-  Behavior:
-      If user hasn't reached the end of the quiz, quiz question is
-      presented. If the answer is correct, the answer_number and
-      question_number are incremented by 1 and the quiz is updated with
-      the correct answer in the blank. If the answer is wrong, the
-      strike counter is incremented by 1.
-  Returns:
-      If user gets all answers correct, 'congratulations message' is
-      returned; if the user gets a wrong answer, the question is
-      asked again. If the user uses all of his or her misses,
-      'game over' message is returned.
-"""
+def correct_answer(chosen_quiz,blanks,question_number,chosen_answers):
+  chosen_quiz = chosen_quiz.replace(
+  blanks[question_number], chosen_answers[question_number])
+  return chosen_quiz
 
+def question_incrementer(user_answer, chosen_answers, question_number):
+    question_number = question_number + 1
+    return question_number
 
-def quiz(chosen_quiz, chosen_answers, blanks, total_strikes):
-    question_number = 0
-    total_strikes = int(total_strikes) - 1
-    print chosen_quiz
-    while question_number < len(chosen_answers):
-        user_answer = raw_input(
-              "What is the answer to " + str(question_number + 1) + "?")
-        if user_answer == chosen_answers[question_number]:
-            chosen_quiz = chosen_quiz.replace(
-                blanks[question_number], chosen_answers[question_number])
-            question_number += 1
-            print chosen_quiz
-        else:
-            if total_strikes != 0:
-                print ("Whoops! Wrong answer. But don't worry, you still "
-                       "have " + str(total_strikes) + " number of tries "
-                       "left.")
-                total_strikes = total_strikes - 1
-            else:
-                return ("Looks like you have reached your maximum number "
-                        "of strikes. Thanks for playing. Goodbye.")
-    return ("Wow! Congratulations! You passed the quiz! Thanks for playing. "
-            "Goodbye.")
+def end_game(total_strikes):
+  if total_strikes == None:
+    return "Sorry. Out of strikes."
+  else:
+    return "Congrats"
 
+def wrong_answer(total_strikes):
+  if total_strikes > 0:
+    print (
+          "Whoops! Wrong answer. But don't worry, you still "
+          "have " + str(total_strikes) + " number of tries "
+          "left.")
+    return total_strikes
+  else:
+    return None
+  
+
+def run_quiz(chosen_answers,chosen_quiz, total_strikes):
+  question_number = 0
+  total_strikes = int(total_strikes)
+  print chosen_quiz
+  while question_number < len(chosen_answers) and total_strikes > 0:
+    user_answer = raw_input(
+      "What is the answer to " + str(question_number + 1) + "?")
+    if user_answer == chosen_answers[question_number]:
+      chosen_quiz = correct_answer(chosen_quiz,blanks,question_number,chosen_answers)
+      question_number = question_incrementer(user_answer, chosen_answers, question_number)
+      print chosen_quiz
+    else:
+      total_strikes = total_strikes - 1
+      total_strikes = wrong_answer(total_strikes)
+  return end_game(total_strikes)
+
+    
 
 user_difficulty_choice = raw_input(
     "Please select the level of difficulty for your quiz: 'easy', 'medium', "
@@ -220,5 +217,16 @@ chosen_answers = assign_answer(user_difficulty_assignment)
 number_of_strikes = raw_input(
     "How many strikes do you want until your game is over?")
 total_strikes = strikes(number_of_strikes)
-total_strikes = int(total_strikes)
-print quiz(chosen_quiz, chosen_answers, blanks, number_of_strikes)
+print run_quiz(chosen_answers, chosen_quiz, number_of_strikes)
+
+"""
+#### changelog
+##8jan18
+##8:53a - question_number incrementer working for all answers, but still incrementing for wrong answers
+##8:55a - add function question_incrementer; incrementer working for both right and wrong answers
+##9:02a - add function correct_answer; chosen quiz updating with correct answer, question_number is incrementing correctly
+##9:13a - add new end_game function to give correct message at end of game, either congrats or out of strikes.
+##9:54a - add all correct content from submitted version; all works except for misses
+##10:04a - no bugs found
+
+"""
