@@ -8,37 +8,37 @@ blanks = [
     ]
 
 easy_quiz = ("The programming language, " + blanks[0] + ", was named after a"
-             " television show called Monty Python's Flying Circus."
-             " In Python, a " + blanks[1] + " loop makes the program run"
-             " while a condition is true. " + blanks[2] + " is a valuable"
-             " skill to learn to find errors (or bugs) in code. "
-             " " + blanks[3] + " is a command that ends the program and"
-             " returns the value.Python allows you to store a value in a"
-             " " + blanks[4] + ". This paragraph of code inside"
-             " quotation marks is called a " + blanks[5] + ".")
+            " television show called Monty Python's Flying Circus."
+            " In Python, a " + blanks[1] + " loop makes the program run"
+            " while a condition is true. " + blanks[2] + " is a valuable"
+            " skill to learn to find errors (or bugs) in code. "
+            " " + blanks[3] + " is a command that ends the program and"
+            " returns the value.Python allows you to store a value in a"
+            " " + blanks[4] + ". This paragraph of code inside"
+            " quotation marks is called a " + blanks[5] + ".")
 
 medium_quiz = (blanks[0] + " is a method where the solution to a problem"
-               " depends on solutions to smaller instances of the same"
-               " problem. Python is considered by most to be a(n)"
-               " " + blanks[1] + " oriented programming language. A"
-               " " + blanks[2] + " is a textual region of a Python program"
-               " where a namespace is directly accessible. While some objects"
-               " in Python are " + blanks[3] + " meaning, they can be"
-               " changed, others are " + blanks[4] + " which means they"
-               " return new objects. A " + blanks[5] + " is an unordered set"
-               " of key: value pairs, with the requirement that the keys"
-               " are unique.")
+              " depends on solutions to smaller instances of the same"
+              " problem. Python is considered by most to be a(n)"
+              " " + blanks[1] + " oriented programming language. A"
+              " " + blanks[2] + " is a textual region of a Python program"
+              " where a namespace is directly accessible. While some objects"
+              " in Python are " + blanks[3] + " meaning, they can be"
+              " changed, others are " + blanks[4] + " which means they"
+              " return new objects. A " + blanks[5] + " is an unordered set"
+              " of key: value pairs, with the requirement that the keys"
+              " are unique.")
 
 hard_quiz = (blanks[0] + " is a programming technique in which computer"
-             " programs have the ability to treat programs as their data."
-             " A shorthand version of function wrapping is called a Python"
-             " " + blanks[1] + ". The Python " + blanks[2] + ""
-             " " + blanks[3] + ", also known in the community as PEP 3118,"
-             " is a framework in which Python objects can expose raw byte"
-             " arrays to other Python objects. " + blanks[4] + " are"
-             " computer program components that generalize subroutines for"
-             " nonpreemptive multitasking. Anonymous functions are defined"
-             " using the " + blanks[5] + " keyword.")
+            " programs have the ability to treat programs as their data."
+            " A shorthand version of function wrapping is called a Python"
+            " " + blanks[1] + ". The Python " + blanks[2] + ""
+            " " + blanks[3] + ", also known in the community as PEP 3118,"
+            " is a framework in which Python objects can expose raw byte"
+            " arrays to other Python objects. " + blanks[4] + " are"
+            " computer program components that generalize subroutines for"
+            " nonpreemptive multitasking. Anonymous functions are defined"
+            " using the " + blanks[5] + " keyword.")
 
 easy_answer = [
   'Python',
@@ -154,30 +154,76 @@ def strikes(number_of_strikes):
                 return int(number_of_strikes)
             else:
                 print ("Please choose a number between 3 and 99 to continue. "
-                       "Now let's try that again.")
+                      "Now let's try that again.")
                 number_of_strikes = raw_input(
                       "How many strikes do you want until your game is over?")
         else:
             print ("Please choose a number between 3 and 99 to continue. "
-                   "Now let's try that again.")
+                  "Now let's try that again.")
             number_of_strikes = raw_input(
                       "How many strikes do you want until your game is over?")
 
+"""outputs new quiz string with correct answer
+
+  Args:
+      chosen_quiz: assigned from user input
+      blanks: list with blanks to be replaced with correct answers
+      question_number: the iterator through list
+      chosen_answers: assigned from user input
+  Behavior:
+      takes chosen_quiz, replaces the blank that was answered with the correct
+      answer
+  Returns:
+     updated quiz with correct answer filled in blank
+"""
 
 def correct_answer(chosen_quiz,blanks,question_number,chosen_answers):
   chosen_quiz = chosen_quiz.replace(
   blanks[question_number], chosen_answers[question_number])
   return chosen_quiz
 
+"""increments through list after correct answer
+
+  Args:
+      user_answer: user input to presented question
+      question_number: the iterator through list
+      chosen_answers: assigned from user input   
+  Behavior:
+      takes question number; increments it by one
+  Returns:
+     returns incremented question number
+"""
+
 def question_incrementer(user_answer, chosen_answers, question_number):
     question_number = question_number + 1
     return question_number
 
+"""returns correct message at end of game
+
+  Args:
+      total_strikes: the number of misses a user chose for him/herself
+  Behavior:
+      returns final statement at end of quiz
+  Returns:
+     returns congratulatory message if user answered all questions right;
+     returns game over message if user used up all of their strikes
+"""
+
 def end_game(total_strikes):
   if total_strikes == None:
-    return "Sorry. Out of strikes."
+    return "I'm sorry. You have reached your maximum number of strikes. Please come back and try again soon. Goodbye."
   else:
-    return "Congrats"
+    return "Congratulations! You answered all questions correctly. Thanks for playing. Goodbye."
+
+"""tracks number of strikes a user has incurred
+
+  Args:
+      total_strikes: the number of misses a user chose for him/herself
+  Behavior:
+      print statement telling user how many strikes s/he has left
+  Returns:
+     returns total_strikes back
+"""
 
 def wrong_answer(total_strikes):
   if total_strikes > 0:
@@ -188,7 +234,22 @@ def wrong_answer(total_strikes):
     return total_strikes
   else:
     return None
-  
+
+"""the main function that loops through quiz questions
+
+  Args:
+      chosen_answers: assigned from user input 
+      chosen_answers: assigned from user input  
+      total_strikes: the number of misses a user chose for him/herself
+  Behavior:
+      while question number is < than the number of answers in the chosen_answer list,
+      user is asked for the answer to the current question. If the answer is correct,
+      the correct_answer function is called; if the answer is wrong,
+      the wrong_answer function is called 
+  Returns:
+     returns the result of the end_game function, which is a message based on the
+     outcome of the game. 
+"""  
 
 def run_quiz(chosen_answers,chosen_quiz, total_strikes):
   question_number = 0
@@ -219,14 +280,3 @@ number_of_strikes = raw_input(
 total_strikes = strikes(number_of_strikes)
 print run_quiz(chosen_answers, chosen_quiz, number_of_strikes)
 
-"""
-#### changelog
-##8jan18
-##8:53a - question_number incrementer working for all answers, but still incrementing for wrong answers
-##8:55a - add function question_incrementer; incrementer working for both right and wrong answers
-##9:02a - add function correct_answer; chosen quiz updating with correct answer, question_number is incrementing correctly
-##9:13a - add new end_game function to give correct message at end of game, either congrats or out of strikes.
-##9:54a - add all correct content from submitted version; all works except for misses
-##10:04a - no bugs found
-
-"""
